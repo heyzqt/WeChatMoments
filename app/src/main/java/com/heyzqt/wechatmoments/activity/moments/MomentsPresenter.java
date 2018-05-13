@@ -5,7 +5,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import android.support.annotation.NonNull;
 
-import com.heyzqt.wechatmoments.base.MomentsModel;
+import com.heyzqt.wechatmoments.activity.moments.model.MomentsModel;
 import com.heyzqt.wechatmoments.bean.MomentBean;
 
 import java.util.List;

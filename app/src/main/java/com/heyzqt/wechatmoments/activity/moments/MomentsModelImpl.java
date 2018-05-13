@@ -1,6 +1,6 @@
 package com.heyzqt.wechatmoments.activity.moments;
 
-import com.heyzqt.wechatmoments.base.MomentsModel;
+import com.heyzqt.wechatmoments.activity.moments.model.MomentsModel;
 import com.heyzqt.wechatmoments.bean.MomentBean;
 
 import java.util.ArrayList;

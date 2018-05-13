@@ -1,4 +1,4 @@
-package com.heyzqt.wechatmoments.base;
+package com.heyzqt.wechatmoments.activity.moments.model;
 
 import com.heyzqt.wechatmoments.activity.moments.OnLoadMomentsListener;
 

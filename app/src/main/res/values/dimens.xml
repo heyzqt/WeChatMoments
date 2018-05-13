@@ -6,10 +6,18 @@
     <dimen name="avatar_moment_height">48dp</dimen>
     <dimen name="span_moment_width">8dp</dimen>
 
-
     <!-- Font size-->
     <dimen name="font_normal">14sp</dimen>
     <dimen name="font_small">12sp</dimen>
     <dimen name="font_16sp">16sp</dimen>
     <dimen name="font_15sp">15sp</dimen>
+
+    <!-- listview user info dimens -->
+    <dimen name="user_layout_height">240dp</dimen>
+    <dimen name="user_background_pic_height">340dp</dimen>
+    <dimen name="refresh_circle_width">24dp</dimen>
+    <dimen name="refresh_circle_height">24dp</dimen>
+    <dimen name="user_avatar_width">100dp</dimen>
+    <dimen name="user_avatar_height">100dp</dimen>
+
 </resources>
