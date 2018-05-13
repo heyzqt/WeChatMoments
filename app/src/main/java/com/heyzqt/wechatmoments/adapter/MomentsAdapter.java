@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,6 +16,7 @@ import android.widget.Toast;
 import com.heyzqt.wechatmoments.R;
 import com.heyzqt.wechatmoments.bean.MomentBean;
 import com.heyzqt.wechatmoments.util.GlideApp;
+import com.heyzqt.wechatmoments.widget.MomentsGridView;
 
 import java.util.List;
 
@@ -117,7 +117,7 @@ public class MomentsAdapter extends BaseAdapter {
 		TextView content;
 
 		@BindView(R.id.gridview)
-		GridView gridview;
+		MomentsGridView gridview;
 
 		@BindView(R.id.one_pic)
 		ImageView oneBigPicView;

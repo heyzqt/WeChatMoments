@@ -34,15 +34,18 @@
             android:id="@+id/content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/moment_content_spacing"
             android:textSize="@dimen/font_normal"
             tools:text="This is a test content."/>
 
-        <GridView
+        <com.heyzqt.wechatmoments.widget.MomentsGridView
             android:id="@+id/gridview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/moment_content_spacing"
             android:horizontalSpacing="@dimen/horizontalSpacing"
             android:numColumns="3"
+            android:scrollbars="none"
             android:verticalSpacing="@dimen/verticalSpacing"
             android:visibility="gone"/>
 
@@ -50,11 +53,13 @@
             android:id="@+id/one_pic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/moment_content_spacing"
             android:visibility="gone"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/moment_content_spacing">
 
             <TextView
                 android:id="@+id/send_time"
@@ -75,6 +80,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/moment_content_spacing"
             android:orientation="vertical">
 
             <LinearLayout
