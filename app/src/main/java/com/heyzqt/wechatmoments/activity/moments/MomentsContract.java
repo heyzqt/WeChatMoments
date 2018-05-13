@@ -27,6 +27,8 @@ public class MomentsContract {
 
 	interface Presenter extends BasePresenter {
 
+		void loadUserInfo();
+
 		void loadMoments();
 
 		void addLike();

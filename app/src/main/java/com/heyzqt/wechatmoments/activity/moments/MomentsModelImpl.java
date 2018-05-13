@@ -1,10 +1,16 @@
 package com.heyzqt.wechatmoments.activity.moments;
 
+import com.google.gson.Gson;
 import com.heyzqt.wechatmoments.activity.moments.model.MomentsModel;
 import com.heyzqt.wechatmoments.bean.MomentBean;
+import com.heyzqt.wechatmoments.entity.User;
+import com.heyzqt.wechatmoments.util.OkHttpUtils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Request;
 
 /**
  * Created by heyzqt on 2018/5/13.
@@ -13,23 +19,45 @@ import java.util.List;
 public class MomentsModelImpl implements MomentsModel {
 
 	@Override
+	public void loadUserInfo(String url, final OnLoadUserInfoListener listener) throws
+			IOException {
+
+		OkHttpUtils.getFormConn(url, null, new OkHttpUtils.DataCallBack() {
+			@Override
+			public void requestSuccess(String result) throws Exception {
+				System.out.println(result);
+				Gson gson = new Gson();
+				User user = gson.fromJson(result, User.class);
+				System.out.println(user.toString());
+				listener.onSuccess(user);
+			}
+
+			@Override
+			public void requestFailure(Request request, IOException e) {
+				System.out.println(request);
+			}
+		});
+	}
+
+	@Override
 	public void loadMoments(String url, int type, OnLoadMomentsListener listener) {
 
-		//1连接成功，0连接失败
-		int statu = 1;
-		int error = 404;
-
-		try {
-			//模拟网络连接
-			Thread.sleep(3000);
-			if (statu == 1) {
-				listener.onSuccess(getData());
-			} else if (statu == 0) {
-				listener.onFailure(404);
-			}
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+//		//1连接成功，0连接失败
+//		int statu = 1;
+//		int error = 404;
+//
+//
+//		try {
+//			//模拟网络连接
+//			Thread.sleep(3000);
+//			if (statu == 1) {
+//				listener.onSuccess(getData());
+//			} else if (statu == 0) {
+//				listener.onFailure(404);
+//			}
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	List<MomentBean> getData() {
