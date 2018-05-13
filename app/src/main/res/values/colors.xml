@@ -3,4 +3,17 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorBlack">#000000</color>
+
+    <!-- font color-->
+    <color name="font_white">#ffffff</color>
+    <color name="font_sender_name">#3D4F76</color>
+    <color name="font_sender_content">#000000</color>
+    <color name="font_full_text">#3D4F76</color>
+    <color name="font_like_name">#3D4F76</color>
+
+
+    <!-- title bar color -->
+    <color name="title_bar_background_color">#393A3F</color>
 </resources>
