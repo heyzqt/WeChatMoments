@@ -1,0 +1,36 @@
+package com.heyzqt.wechatmoments.activity.moments;
+
+import com.heyzqt.wechatmoments.base.BasePresenter;
+import com.heyzqt.wechatmoments.base.BaseView;
+import com.heyzqt.wechatmoments.bean.MomentBean;
+
+import java.util.List;
+
+/**
+ * Created by heyzqt on 2018/5/13.
+ */
+
+public class MomentsContract {
+
+	interface View extends BaseView<Presenter> {
+
+		void showListView(List<MomentBean> datas);
+
+		void showLikes();
+
+		void showComments();
+
+		void showPullDownRefresh();
+
+		void showPullUpRefresh();
+	}
+
+	interface Presenter extends BasePresenter {
+
+		void loadMoments();
+
+		void addLike();
+
+		void addComment();
+	}
+}

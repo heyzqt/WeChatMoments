@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">WeChatMoments</string>
+
+    <string name="moments_title">Moments</string>
+    <string name="moments_like">Like</string>
+    <string name="moments_cancel_like">Cancel</string>
+    <string name="moments_comment">Comment</string>
+    <string name="moments_delete">Delete</string>
 </resources>

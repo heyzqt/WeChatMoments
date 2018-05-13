@@ -1,19 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.heyzqt.wechatmoments.activity.MomentsActivity">
+    android:orientation="vertical"
+    tools:context="com.heyzqt.wechatmoments.activity.moments.MomentsActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/title_bar"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/title_bar_background_color"
+            android:paddingBottom="14dp"
+            android:paddingTop="14dp">
+
+            <ImageView
+                android:id="@+id/back_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:src="@mipmap/back"/>
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="0.2dp"
+                android:layout_height="15dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/back_img"
+                android:background="@color/divider_color"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/back_img"
+                android:text="@string/moments_title"
+                android:textColor="@color/font_white"
+                android:textSize="20sp"/>
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:paddingRight="10dp"
+                android:src="@mipmap/camera"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <com.heyzqt.wechatmoments.widget.MomentsListView
+        android:id="@+id/moments_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/listview_background"
+        android:divider="@color/listview_divider"/>
+
+</LinearLayout>

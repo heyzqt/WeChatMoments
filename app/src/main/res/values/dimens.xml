@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Some dimens about every Moment-->
+    <dimen name="avatar_moment_width">48dp</dimen>
+    <dimen name="avatar_moment_height">48dp</dimen>
+    <dimen name="span_moment_width">8dp</dimen>
+
+
+    <!-- Font size-->
+    <dimen name="font_normal">14sp</dimen>
+    <dimen name="font_small">12sp</dimen>
+    <dimen name="font_16sp">16sp</dimen>
+    <dimen name="font_15sp">15sp</dimen>
+</resources>
