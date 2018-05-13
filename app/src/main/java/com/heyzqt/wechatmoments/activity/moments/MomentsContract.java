@@ -26,6 +26,8 @@ public class MomentsContract {
 		void showPullDownRefresh();
 
 		void showPullUpRefresh();
+
+		void showLoadFailed();
 	}
 
 	interface Presenter extends BasePresenter {

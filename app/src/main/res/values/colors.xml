@@ -12,6 +12,7 @@
     <color name="font_sender_content">#000000</color>
     <color name="font_full_text">#3D4F76</color>
     <color name="font_like_name">#3D4F76</color>
+    <color name="font_no_internet">#eeeeee</color>
 
 
     <!-- title bar color -->
@@ -24,4 +25,5 @@
     <color name="comment_background">#eeeeee</color>
     <color name="gridview_background">#f8f8f8</color>
     <color name="timeColor">#7d7d7d</color>
+    <color name="temp_pic">#c6c6c6</color>
 </resources>

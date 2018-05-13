@@ -1,5 +1,8 @@
 package com.heyzqt.wechatmoments.activity.moments;
 
+import android.view.View;
+import android.widget.RelativeLayout;
+
 import com.heyzqt.wechatmoments.R;
 import com.heyzqt.wechatmoments.adapter.MomentsAdapter;
 import com.heyzqt.wechatmoments.base.BaseActivity;
@@ -17,6 +20,8 @@ public class MomentsActivity extends BaseActivity<MomentsPresenter> implements
 
 	@BindView(R.id.moments_listview)
 	MomentsListView mListView;
+	@BindView(R.id.no_internet_layout)
+	RelativeLayout mNoInternetLayout;
 
 	MomentsAdapter mMomentsAdapter;
 
@@ -69,5 +74,10 @@ public class MomentsActivity extends BaseActivity<MomentsPresenter> implements
 	@Override
 	public void showPullUpRefresh() {
 
+	}
+
+	@Override
+	public void showLoadFailed() {
+		mNoInternetLayout.setVisibility(View.VISIBLE);
 	}
 }

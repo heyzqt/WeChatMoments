@@ -77,6 +77,6 @@ public class MomentsPresenter implements MomentsContract.Presenter, OnLoadMoment
 
 	@Override
 	public void onFailure(int error) {
-
+		mMomentsView.showLoadFailed();
 	}
 }

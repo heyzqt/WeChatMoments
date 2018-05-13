@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.heyzqt.wechatmoments.R;
 import com.heyzqt.wechatmoments.bean.MomentBean;
+import com.heyzqt.wechatmoments.util.GlideApp;
 
 import java.util.List;
 
@@ -71,16 +72,24 @@ public class MomentsAdapter extends BaseAdapter {
 			viewHolder.content.setText(moments.get(position).getContent());
 		}
 
-		//initial GridView
-		if (moments.get(position).getImages() != null &&
+		//initial picture GridView
+		if (moments.get(position).getImages() == null ||
+				moments.get(position).getImages().size() == 0) {
+			viewHolder.gridview.setVisibility(View.GONE);
+			viewHolder.oneBigPicView.setVisibility(View.GONE);
+		} else if (moments.get(position).getImages() != null &&
 				moments.get(position).getImages().size() == 1) {
 			//Only has one photo
 			viewHolder.gridview.setVisibility(View.GONE);
 			viewHolder.oneBigPicView.setVisibility(View.VISIBLE);
+			GlideApp.with(parent.getContext())
+					.load(moments.get(position).getImages().get(0))
+					.placeholder(R.mipmap.loading)
+					.into(viewHolder.oneBigPicView);
 		} else {
 			viewHolder.gridview.setVisibility(View.VISIBLE);
 			viewHolder.oneBigPicView.setVisibility(View.GONE);
-			viewHolder.oneBigPicView.setImageResource(R.mipmap.img_test);
+			viewHolder.gridview.setAdapter(new GridViewAdapter(moments.get(position).getImages()));
 		}
 
 		//initial time textview and comment button

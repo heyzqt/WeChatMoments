@@ -21,5 +21,7 @@
     <dimen name="user_avatar_height">100dp</dimen>
     <dimen name="moment_pic_width">100dp</dimen>
     <dimen name="momnet_pic_height">100dp</dimen>
+    <dimen name="horizontalSpacing">2dp</dimen>
+    <dimen name="verticalSpacing">2dp</dimen>
 
 </resources>

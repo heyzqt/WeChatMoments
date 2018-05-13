@@ -6,4 +6,6 @@
     <string name="moments_cancel_like">Cancel</string>
     <string name="moments_comment">Comment</string>
     <string name="moments_delete">Delete</string>
+
+    <string name="no_internet">Please check the Internet.</string>
 </resources>
