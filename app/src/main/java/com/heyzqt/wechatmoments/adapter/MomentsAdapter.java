@@ -63,7 +63,11 @@ public class MomentsAdapter extends BaseAdapter {
 		}
 
 		//initial personal avatar,name,content
-		viewHolder.avatar.setImageResource(R.mipmap.avatar_no_internet);
+		GlideApp.with(parent.getContext())
+				.load(moments.get(position).getSender().getAvatar())
+				.placeholder(R.mipmap.avatar_no_internet)
+				.into(viewHolder.avatar);
+		System.out.println("avatar url = " + moments.get(position).getSender().getAvatar());
 		viewHolder.name.setText(moments.get(position).getSender().getNick());
 		if (TextUtils.isEmpty(moments.get(position).getContent())) {
 			viewHolder.content.setVisibility(View.GONE);
@@ -72,7 +76,7 @@ public class MomentsAdapter extends BaseAdapter {
 			viewHolder.content.setText(moments.get(position).getContent());
 		}
 
-		//initial picture GridView
+		//initial picture GridView or one big picture
 		if (moments.get(position).getImages() == null ||
 				moments.get(position).getImages().size() == 0) {
 			viewHolder.gridview.setVisibility(View.GONE);
@@ -84,7 +88,7 @@ public class MomentsAdapter extends BaseAdapter {
 			viewHolder.oneBigPicView.setVisibility(View.VISIBLE);
 			GlideApp.with(parent.getContext())
 					.load(moments.get(position).getImages().get(0))
-					.placeholder(R.mipmap.loading)
+					.placeholder(R.drawable.temp_pic)
 					.into(viewHolder.oneBigPicView);
 		} else {
 			viewHolder.gridview.setVisibility(View.VISIBLE);

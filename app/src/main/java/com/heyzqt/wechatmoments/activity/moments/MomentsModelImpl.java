@@ -81,12 +81,21 @@ public class MomentsModelImpl implements MomentsModel {
 		int remove = 0;
 		while (iterator.hasNext()) {
 			MomentBean moment = (MomentBean) iterator.next();
+
+			/**
+			 * Jump if meet error message.
+			 */
+			String content = moment.getContent();
 			String error = moment.getError();
 			String unKnownError = moment.getUnknownError();
+			List<MomentBean.ImagesBean> imgs = moment.getImages();
 			if (!TextUtils.isEmpty(error) && !error.equals("null")) {
 				iterator.remove();
 				remove++;
 			} else if (!TextUtils.isEmpty(unKnownError) && !unKnownError.equals("null")) {
+				iterator.remove();
+				remove++;
+			} else if (TextUtils.isEmpty(content) && (imgs == null || imgs.size() == 0)) {
 				iterator.remove();
 				remove++;
 			}

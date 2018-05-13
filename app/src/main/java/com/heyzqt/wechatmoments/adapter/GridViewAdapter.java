@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.heyzqt.wechatmoments.R;
 import com.heyzqt.wechatmoments.bean.MomentBean;
+import com.heyzqt.wechatmoments.util.GlideApp;
 
 import java.util.List;
 
@@ -54,11 +55,10 @@ public class GridViewAdapter extends BaseAdapter {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 
-		viewHolder.pic.setImageResource(R.drawable.temp_pic);
-//		GlideApp.with(parent.getContext())
-//				.load(imgs.get(position).getUrl())
-//				.placeholder(R.drawable.temp_pic)
-//				.into(viewHolder.pic);
+		GlideApp.with(parent.getContext())
+				.load(imgs.get(position).getUrl())
+				.placeholder(R.drawable.temp_pic)
+				.into(viewHolder.pic);
 
 		viewHolder.pic.setOnClickListener(new View.OnClickListener() {
 			@Override
