@@ -13,6 +13,7 @@
     <color name="font_full_text">#3D4F76</color>
     <color name="font_like_name">#3D4F76</color>
     <color name="font_no_internet">#eeeeee</color>
+    <color name="font_black">#000000</color>
 
 
     <!-- title bar color -->

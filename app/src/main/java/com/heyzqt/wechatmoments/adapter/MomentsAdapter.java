@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.heyzqt.wechatmoments.R;
 import com.heyzqt.wechatmoments.bean.MomentBean;
 import com.heyzqt.wechatmoments.util.GlideApp;
+import com.heyzqt.wechatmoments.widget.CommentTextView;
 import com.heyzqt.wechatmoments.widget.MomentsGridView;
 
 import java.util.List;
@@ -62,7 +63,14 @@ public class MomentsAdapter extends BaseAdapter {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 
-		//initial personal avatar,name,content
+		updateSenderView(viewHolder, parent, position);
+		updateGridView(viewHolder, parent, position);
+		updateTimeCommentView(viewHolder, parent, position);
+		updateBottomView(viewHolder, parent, position);
+		return convertView;
+	}
+
+	void updateSenderView(ViewHolder viewHolder, View parent, int position) {
 		GlideApp.with(parent.getContext())
 				.load(moments.get(position).getSender().getAvatar())
 				.placeholder(R.mipmap.avatar_no_internet)
@@ -75,8 +83,9 @@ public class MomentsAdapter extends BaseAdapter {
 			viewHolder.content.setVisibility(View.VISIBLE);
 			viewHolder.content.setText(moments.get(position).getContent());
 		}
+	}
 
-		//initial picture GridView or one big picture
+	void updateGridView(ViewHolder viewHolder, View parent, int position) {
 		if (moments.get(position).getImages() == null ||
 				moments.get(position).getImages().size() == 0) {
 			viewHolder.gridview.setVisibility(View.GONE);
@@ -95,7 +104,9 @@ public class MomentsAdapter extends BaseAdapter {
 			viewHolder.oneBigPicView.setVisibility(View.GONE);
 			viewHolder.gridview.setAdapter(new GridViewAdapter(moments.get(position).getImages()));
 		}
+	}
 
+	void updateTimeCommentView(ViewHolder viewHolder, View parent, final int position) {
 		//initial time textview and comment button
 		viewHolder.time.setText("17 minutes ago");
 		viewHolder.commentBtn.setOnClickListener(new View.OnClickListener() {
@@ -105,35 +116,50 @@ public class MomentsAdapter extends BaseAdapter {
 						Toast.LENGTH_SHORT).show();
 			}
 		});
+	}
 
+	void updateBottomView(ViewHolder viewHolder, View parent, int position) {
 		//initial likes layout and comments layout
-		return convertView;
+		List<MomentBean.CommentsBean> commentsBeans = moments.get(position).getComments();
+		if (commentsBeans != null && commentsBeans.size() > 0) {
+			viewHolder.commentLayout.removeAllViews();
+
+			viewHolder.bottomLayout.setVisibility(View.VISIBLE);
+			viewHolder.bottomLayout.setBackgroundResource(R.mipmap.detail);
+			int n = commentsBeans.size();
+			for (int i = 0; i < n; i++) {
+				MomentBean.CommentsBean comment = commentsBeans.get(i);
+				CommentTextView commentTextView = new CommentTextView(parent.getContext());
+				commentTextView.setTitleText(comment.getSender().getNick());
+				commentTextView.setContentText(comment.getContent());
+				viewHolder.commentLayout.addView(commentTextView);
+			}
+		} else {
+			viewHolder.bottomLayout.setVisibility(View.GONE);
+		}
 	}
 
 	static class ViewHolder {
 		@BindView(R.id.avatar_img)
 		ImageView avatar;
-
 		@BindView(R.id.name)
 		TextView name;
-
 		@BindView(R.id.content)
 		TextView content;
-
 		@BindView(R.id.gridview)
 		MomentsGridView gridview;
-
 		@BindView(R.id.one_pic)
 		ImageView oneBigPicView;
-
 		@BindView(R.id.send_time)
 		TextView time;
-
 		@BindView(R.id.comment_btn)
 		ImageView commentBtn;
-
+		@BindView(R.id.bottom_layout)
+		LinearLayout bottomLayout;
 		@BindView(R.id.likes_layout)
 		LinearLayout likesLayout;
+		@BindView(R.id.comment_layout)
+		LinearLayout commentLayout;
 
 		public ViewHolder(View view) {
 			ButterKnife.bind(this, view);

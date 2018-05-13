@@ -80,10 +80,13 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/bottom_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/moment_content_spacing"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:visibility="gone">
 
             <LinearLayout
                 android:id="@+id/likes_layout"
@@ -91,12 +94,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"/>
 
-
-            <TextView
-                android:id="@+id/comments"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/comment_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="hello world"/>
+                android:layout_marginTop="5dp"
+                android:orientation="vertical"/>
         </LinearLayout>
     </LinearLayout>
 

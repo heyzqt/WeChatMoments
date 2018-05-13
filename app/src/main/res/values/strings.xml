@@ -8,4 +8,5 @@
     <string name="moments_delete">Delete</string>
 
     <string name="no_internet">Please check the Internet.</string>
+    <string name="colon"> : </string>
 </resources>
