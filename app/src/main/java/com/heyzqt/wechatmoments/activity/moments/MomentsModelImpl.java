@@ -3,6 +3,9 @@ package com.heyzqt.wechatmoments.activity.moments;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.heyzqt.wechatmoments.activity.moments.model.MomentsModel;
 import com.heyzqt.wechatmoments.bean.MomentBean;
 import com.heyzqt.wechatmoments.entity.User;
@@ -43,24 +46,39 @@ public class MomentsModelImpl implements MomentsModel {
 	}
 
 	@Override
-	public void loadMoments(String url, int type, OnLoadMomentsListener listener) {
+	public void loadMoments(String url, final OnLoadMomentsListener listener) throws IOException {
 
-		//1连接成功，0连接失败
-		int statu = 1;
-		int error = 404;
-
-
-		try {
-			//模拟网络连接
-			Thread.sleep(3000);
-			if (statu == 1) {
-				listener.onSuccess(getData());
-			} else if (statu == 0) {
-				listener.onFailure(404);
+		OkHttpUtils.getFormConn(url, null, new OkHttpUtils.DataCallBack() {
+			@Override
+			public void requestSuccess(String result) throws Exception {
+				Log.i(TAG, "requestSuccess: get user info succeed");
+				listener.onSuccess(getMomentBeans(result));
 			}
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+
+			@Override
+			public void requestFailure(Request request, IOException e) {
+				Log.i(TAG, "requestSuccess: get user info failed");
+				Log.i(TAG, "requestFailure: error : " + e.toString());
+				listener.onFailure(-1);
+			}
+		});
+
+//		//1连接成功，0连接失败
+//		int statu = 1;
+//		int error = 404;
+//
+//
+//		try {
+//			//模拟网络连接
+//			Thread.sleep(3000);
+//			if (statu == 1) {
+//				listener.onSuccess(getData());
+//			} else if (statu == 0) {
+//				listener.onFailure(404);
+//			}
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	List<MomentBean> getData() {
@@ -91,5 +109,28 @@ public class MomentsModelImpl implements MomentsModel {
 		Gson gson = new Gson();
 		user = gson.fromJson(json, User.class);
 		return user;
+	}
+
+	private List<MomentBean> getMomentBeans(String json) {
+		return parseNoHeaderJArray(json);
+	}
+
+	/**
+	 * 解析没有数据头的纯数组
+	 */
+	private List<MomentBean> parseNoHeaderJArray(String strByJson) {
+		JsonParser parser = new JsonParser();
+		//Convert String to JsonArray
+		JsonArray jsonArray = parser.parse(strByJson).getAsJsonArray();
+
+		Gson gson = new Gson();
+		ArrayList<MomentBean> momentBeans = new ArrayList<>();
+
+		for (JsonElement user : jsonArray) {
+			MomentBean moment = gson.fromJson(user, MomentBean.class);
+			momentBeans.add(moment);
+			Log.i(TAG, "parseNoHeaderJArray: moment " + moment.toString());
+		}
+		return momentBeans;
 	}
 }

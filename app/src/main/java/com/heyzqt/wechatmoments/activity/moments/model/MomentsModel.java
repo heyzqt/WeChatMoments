@@ -13,5 +13,5 @@ public interface MomentsModel {
 
 	void loadUserInfo(String url, OnLoadUserInfoListener listener) throws IOException;
 
-	void loadMoments(String url, int type, OnLoadMomentsListener listener);
+	void loadMoments(String url, OnLoadMomentsListener listener) throws IOException;
 }

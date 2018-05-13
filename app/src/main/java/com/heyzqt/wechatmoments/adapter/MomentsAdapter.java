@@ -3,6 +3,7 @@ package com.heyzqt.wechatmoments.adapter;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,7 +64,12 @@ public class MomentsAdapter extends BaseAdapter {
 		//initial personal avatar,name,content
 		viewHolder.avatar.setImageResource(R.mipmap.avatar_no_internet);
 		viewHolder.name.setText(moments.get(position).getSender().getNick());
-		viewHolder.content.setText(moments.get(position).getContent());
+		if (TextUtils.isEmpty(moments.get(position).getContent())) {
+			viewHolder.content.setVisibility(View.GONE);
+		} else {
+			viewHolder.content.setVisibility(View.VISIBLE);
+			viewHolder.content.setText(moments.get(position).getContent());
+		}
 
 		//initial GridView
 		if (moments.get(position).getImages() != null &&

@@ -48,7 +48,11 @@ public class MomentsPresenter implements MomentsContract.Presenter, OnLoadMoment
 
 	@Override
 	public void loadMoments() {
-		mMomentsModel.loadMoments(MOMENTS_URL, 0, this);
+		try {
+			mMomentsModel.loadMoments(MOMENTS_URL, this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

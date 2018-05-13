@@ -19,5 +19,7 @@
     <dimen name="refresh_circle_height">24dp</dimen>
     <dimen name="user_avatar_width">100dp</dimen>
     <dimen name="user_avatar_height">100dp</dimen>
+    <dimen name="moment_pic_width">100dp</dimen>
+    <dimen name="momnet_pic_height">100dp</dimen>
 
 </resources>
