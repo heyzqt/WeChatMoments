@@ -12,10 +12,11 @@ public class User {
 
 	private String username;
 
-	private String avatar;
+	@SerializedName("avatar")
+	private String avatarurl;
 
 	@SerializedName("profile-image")
-	private String imageurl;
+	private String profileurl;
 
 	public String getNick() {
 		return nick;
@@ -33,20 +34,20 @@ public class User {
 		this.username = username;
 	}
 
-	public String getAvatar() {
-		return avatar;
+	public String getAvatarurl() {
+		return avatarurl;
 	}
 
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
+	public void setAvatarurl(String avatarurl) {
+		this.avatarurl = avatarurl;
 	}
 
-	public String getImageurl() {
-		return imageurl;
+	public String getProfileurl() {
+		return profileurl;
 	}
 
-	public void setImageurl(String imageurl) {
-		this.imageurl = imageurl;
+	public void setProfileurl(String profileurl) {
+		this.profileurl = profileurl;
 	}
 
 	@Override
@@ -54,8 +55,8 @@ public class User {
 		return "User{" +
 				"nick='" + nick + '\'' +
 				", username='" + username + '\'' +
-				", avatar='" + avatar + '\'' +
-				", imageurl='" + imageurl + '\'' +
+				", avatarurl='" + avatarurl + '\'' +
+				", profileurl='" + profileurl + '\'' +
 				'}';
 	}
 }

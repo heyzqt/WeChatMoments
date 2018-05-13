@@ -2,17 +2,16 @@ package com.heyzqt.wechatmoments.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.heyzqt.wechatmoments.R;
+import com.heyzqt.wechatmoments.entity.User;
+import com.heyzqt.wechatmoments.util.GlideApp;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,28 +47,20 @@ public class MomentsListView extends ListView implements AbsListView.OnScrollLis
 		mHolder = new ViewHolder(headerView);
 		addHeaderView(headerView);
 		setOnScrollListener(this);
+	}
 
-		mHolder.username.setText("heyzqt");
+	public void updateHeaderView(User user) {
+		mHolder.username.setText(user.getNick());
 
-		mHolder.useravatar.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Toast.makeText(v.getContext(), "useravatar", Toast.LENGTH_SHORT).show();
-			}
-		});
+		GlideApp.with(mHolder.view.getContext())
+				.load(user.getAvatarurl())
+				.placeholder(R.mipmap.loading)
+				.into(mHolder.useravatar);
 
-		headerView.getViewTreeObserver().addOnPreDrawListener(
-				new ViewTreeObserver.OnPreDrawListener() {
-					@Override
-					public boolean onPreDraw() {
-						Log.i(TAG, "onPreDraw: ");
-//						if (headerView.getMeasuredWidth() > 0) {
-//							headerViewHeight = headerView.getMeasuredHeight();
-//							headerView.getViewTreeObserver().removeOnPreDrawListener(this);
-//						}
-						return true;
-					}
-				});
+		GlideApp.with(mHolder.view.getContext())
+				.load(user.getProfileurl())
+				.placeholder(R.mipmap.img_test)
+				.into(mHolder.profile);
 	}
 
 	@Override
@@ -85,8 +76,14 @@ public class MomentsListView extends ListView implements AbsListView.OnScrollLis
 
 	class ViewHolder {
 
+		View view;
+
 		@BindView(R.id.refresh_circle)
 		ImageView circle;
+
+		@BindView(R.id.profile_img)
+		ImageView profile;
+
 
 		@BindView(R.id.user_name)
 		TextView username;
@@ -95,6 +92,7 @@ public class MomentsListView extends ListView implements AbsListView.OnScrollLis
 		ImageView useravatar;
 
 		public ViewHolder(View view) {
+			this.view = view;
 			ButterKnife.bind(this, view);
 		}
 	}

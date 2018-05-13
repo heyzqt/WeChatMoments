@@ -1,5 +1,7 @@
 package com.heyzqt.wechatmoments.activity.moments;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.heyzqt.wechatmoments.activity.moments.model.MomentsModel;
 import com.heyzqt.wechatmoments.bean.MomentBean;
@@ -18,6 +20,8 @@ import okhttp3.Request;
 
 public class MomentsModelImpl implements MomentsModel {
 
+	private static final String TAG = "MomentsModelImpl";
+
 	@Override
 	public void loadUserInfo(String url, final OnLoadUserInfoListener listener) throws
 			IOException {
@@ -25,16 +29,15 @@ public class MomentsModelImpl implements MomentsModel {
 		OkHttpUtils.getFormConn(url, null, new OkHttpUtils.DataCallBack() {
 			@Override
 			public void requestSuccess(String result) throws Exception {
-				System.out.println(result);
-				Gson gson = new Gson();
-				User user = gson.fromJson(result, User.class);
-				System.out.println(user.toString());
-				listener.onSuccess(user);
+				Log.i(TAG, "requestSuccess: get user info succeed");
+				listener.onSuccess(getUserObj(result));
 			}
 
 			@Override
 			public void requestFailure(Request request, IOException e) {
-				System.out.println(request);
+				Log.i(TAG, "requestSuccess: get user info failed");
+				Log.i(TAG, "requestFailure: error : " + e.toString());
+				listener.onFailure(-1);
 			}
 		});
 	}
@@ -42,22 +45,22 @@ public class MomentsModelImpl implements MomentsModel {
 	@Override
 	public void loadMoments(String url, int type, OnLoadMomentsListener listener) {
 
-//		//1连接成功，0连接失败
-//		int statu = 1;
-//		int error = 404;
-//
-//
-//		try {
-//			//模拟网络连接
-//			Thread.sleep(3000);
-//			if (statu == 1) {
-//				listener.onSuccess(getData());
-//			} else if (statu == 0) {
-//				listener.onFailure(404);
-//			}
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
+		//1连接成功，0连接失败
+		int statu = 1;
+		int error = 404;
+
+
+		try {
+			//模拟网络连接
+			Thread.sleep(3000);
+			if (statu == 1) {
+				listener.onSuccess(getData());
+			} else if (statu == 0) {
+				listener.onFailure(404);
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	List<MomentBean> getData() {
@@ -81,5 +84,12 @@ public class MomentsModelImpl implements MomentsModel {
 			datas.add(moment);
 		}
 		return datas;
+	}
+
+	private User getUserObj(String json) {
+		User user;
+		Gson gson = new Gson();
+		user = gson.fromJson(json, User.class);
+		return user;
 	}
 }

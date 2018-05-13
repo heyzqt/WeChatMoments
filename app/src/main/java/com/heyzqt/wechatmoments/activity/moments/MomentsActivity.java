@@ -4,6 +4,7 @@ import com.heyzqt.wechatmoments.R;
 import com.heyzqt.wechatmoments.adapter.MomentsAdapter;
 import com.heyzqt.wechatmoments.base.BaseActivity;
 import com.heyzqt.wechatmoments.bean.MomentBean;
+import com.heyzqt.wechatmoments.entity.User;
 import com.heyzqt.wechatmoments.widget.MomentsListView;
 
 import java.util.List;
@@ -34,9 +35,15 @@ public class MomentsActivity extends BaseActivity<MomentsPresenter> implements
 	@Override
 	public void initPresenter() {
 		mPresenter = new MomentsPresenter(this);
+		mPresenter.loadUserInfo();
 		mPresenter.loadMoments();
 	}
 
+
+	@Override
+	public void showUserInfo(User user) {
+		mListView.updateHeaderView(user);
+	}
 
 	@Override
 	public void showListView(List<MomentBean> datas) {

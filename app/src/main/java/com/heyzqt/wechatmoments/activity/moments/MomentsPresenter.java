@@ -39,18 +39,16 @@ public class MomentsPresenter implements MomentsContract.Presenter, OnLoadMoment
 
 	@Override
 	public void loadUserInfo() {
-
-	}
-
-	@Override
-	public void loadMoments() {
 		try {
 			mMomentsModel.loadUserInfo(USER_URL, this);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		//mMomentsModel.loadMoments(MOMENTS_URL, 0, this);
-		//mMomentsModel.loadMoments("111", 200, this);
+	}
+
+	@Override
+	public void loadMoments() {
+		mMomentsModel.loadMoments(MOMENTS_URL, 0, this);
 	}
 
 	@Override
@@ -70,7 +68,7 @@ public class MomentsPresenter implements MomentsContract.Presenter, OnLoadMoment
 
 	@Override
 	public void onSuccess(User user) {
-		System.out.println("用户数据获取");
+		mMomentsView.showUserInfo(user);
 	}
 
 	@Override

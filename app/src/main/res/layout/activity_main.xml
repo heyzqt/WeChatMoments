@@ -65,7 +65,6 @@
         android:layout_height="wrap_content"
         android:background="@color/listview_background"
         android:divider="@color/listview_divider"
-        android:dividerHeight="1dp"/>
-    <!--android:listSelector="@android:color/transparent"-->
-
+        android:dividerHeight="1dp"
+        android:listSelector="@android:color/transparent"/>
 </LinearLayout>

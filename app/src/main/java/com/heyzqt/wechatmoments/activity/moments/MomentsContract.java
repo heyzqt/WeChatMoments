@@ -3,6 +3,7 @@ package com.heyzqt.wechatmoments.activity.moments;
 import com.heyzqt.wechatmoments.base.BasePresenter;
 import com.heyzqt.wechatmoments.base.BaseView;
 import com.heyzqt.wechatmoments.bean.MomentBean;
+import com.heyzqt.wechatmoments.entity.User;
 
 import java.util.List;
 
@@ -13,6 +14,8 @@ import java.util.List;
 public class MomentsContract {
 
 	interface View extends BaseView<Presenter> {
+
+		void showUserInfo(User user);
 
 		void showListView(List<MomentBean> datas);
 
