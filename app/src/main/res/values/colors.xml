@@ -12,9 +12,8 @@
     <color name="font_sender_content">#000000</color>
     <color name="font_full_text">#3D4F76</color>
     <color name="font_like_name">#3D4F76</color>
-    <color name="font_no_internet">#eeeeee</color>
     <color name="font_black">#000000</color>
-
+    <color name="font_gray">#7b7a7a</color>
 
     <!-- title bar color -->
     <color name="title_bar_background_color">#393A3F</color>

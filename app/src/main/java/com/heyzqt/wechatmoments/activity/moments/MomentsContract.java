@@ -15,17 +15,17 @@ public class MomentsContract {
 
 	interface View extends BaseView<Presenter> {
 
-		void showUserInfo(User user);
+		void initUserInfo(User user);
 
-		void showListView(List<MomentBean> datas);
+		void initListView(List<MomentBean> datas);
 
 		void showLikes();
 
 		void showComments();
 
-		void showPullDownRefresh();
+		void refreshPullDownData(List<MomentBean> datas);
 
-		void showPullUpRefresh();
+		void loadPullUpData(List<MomentBean> datas);
 
 		void showLoadFailed();
 	}

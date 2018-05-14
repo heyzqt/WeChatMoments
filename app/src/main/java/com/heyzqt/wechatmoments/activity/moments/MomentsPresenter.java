@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import com.heyzqt.wechatmoments.activity.moments.model.MomentsModel;
 import com.heyzqt.wechatmoments.bean.MomentBean;
 import com.heyzqt.wechatmoments.entity.User;
+import com.heyzqt.wechatmoments.widget.MomentsListView;
 
 import java.io.IOException;
 import java.util.List;
@@ -17,13 +18,18 @@ import java.util.List;
  */
 
 public class MomentsPresenter implements MomentsContract.Presenter, OnLoadMomentsListener,
-		OnLoadUserInfoListener {
+		OnLoadUserInfoListener, MomentsListView.OnRefreshListener {
 
 	@NonNull
 	private final MomentsContract.View mMomentsView;
 
 	private MomentsModel mMomentsModel;
 	private List<MomentBean> mMomentBeans;
+
+	//Limit listview the count of update items
+	private int cachedItemCount = 5;
+	private int momentsCount;
+	private final int LOADED_ITEMS_COUNT = 5;
 
 	private final static String USER_URL = "xxxxxxx";
 	private final static String MOMENTS_URL = "xxxxxxx";
@@ -67,16 +73,37 @@ public class MomentsPresenter implements MomentsContract.Presenter, OnLoadMoment
 
 	@Override
 	public void onSuccess(List<MomentBean> datas) {
-		mMomentsView.showListView(datas);
+		mMomentBeans = datas;
+		momentsCount = datas.size();
+		mMomentsView.initListView(mMomentBeans.subList(0, cachedItemCount));
 	}
 
 	@Override
 	public void onSuccess(User user) {
-		mMomentsView.showUserInfo(user);
+		mMomentsView.initUserInfo(user);
 	}
 
 	@Override
 	public void onFailure(int error) {
 		mMomentsView.showLoadFailed();
+	}
+
+	@Override
+	public void pullDownRefresh() {
+
+	}
+
+	@Override
+	public void pullUpLoad() {
+		cachedItemCount += LOADED_ITEMS_COUNT;
+		if (cachedItemCount > momentsCount) {
+			cachedItemCount = momentsCount;
+		}
+
+		mMomentsView.loadPullUpData(mMomentBeans.subList(0, cachedItemCount));
+	}
+
+	public int getMomentsCount() {
+		return momentsCount;
 	}
 }
