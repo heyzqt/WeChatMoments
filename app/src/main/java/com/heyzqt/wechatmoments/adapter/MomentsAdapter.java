@@ -38,12 +38,12 @@ public class MomentsAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		return moments.size();
+		return moments == null ? 0 : moments.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return position;
+		return moments == null ? null : moments.get(position);
 	}
 
 	@Override
@@ -137,6 +137,11 @@ public class MomentsAdapter extends BaseAdapter {
 		} else {
 			viewHolder.bottomLayout.setVisibility(View.GONE);
 		}
+	}
+
+	public void setData(List<MomentBean> datas) {
+		moments = datas;
+		notifyDataSetChanged();
 	}
 
 	static class ViewHolder {

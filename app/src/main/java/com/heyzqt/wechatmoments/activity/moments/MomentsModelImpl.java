@@ -40,7 +40,7 @@ public class MomentsModelImpl implements MomentsModel {
 
 			@Override
 			public void requestFailure(Request request, IOException e) {
-				Log.i(TAG, "requestSuccess: get user info failed");
+				Log.i(TAG, "requestFailure: get user info failed");
 				Log.i(TAG, "requestFailure: error : " + e.toString());
 				listener.onFailure(-1);
 			}
@@ -59,7 +59,7 @@ public class MomentsModelImpl implements MomentsModel {
 
 			@Override
 			public void requestFailure(Request request, IOException e) {
-				Log.i(TAG, "requestSuccess: get user info failed");
+				Log.i(TAG, "requestFailure: get user info failed");
 				Log.i(TAG, "requestFailure: error : " + e.toString());
 				listener.onFailure(-1);
 			}
