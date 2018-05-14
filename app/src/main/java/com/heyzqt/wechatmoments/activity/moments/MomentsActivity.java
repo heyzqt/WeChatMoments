@@ -71,16 +71,23 @@ public class MomentsActivity extends BaseActivity<MomentsPresenter> implements
 
 	@Override
 	public void refreshPullDownData(List<MomentBean> datas) {
-
+		//延时发送消息，使加载效果更明显
+		final List<MomentBean> temp = datas;
+		new Handler().postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				mMomentsAdapter.setData(temp.subList(0, mPresenter.getCachedItemCount()));
+				mListView.hideHeaderView();
+			}
+		}, 3000);
 	}
 
 	@Override
 	public void loadPullUpData(final List<MomentBean> datas) {
 
 		final List<MomentBean> temp = datas;
-
 		mListView.showFooterView(true);
-		//使分页加载的效果更明显
+		//延时发送消息，使分页加载的效果更明显
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {

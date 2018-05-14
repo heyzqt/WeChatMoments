@@ -90,7 +90,10 @@ public class MomentsPresenter implements MomentsContract.Presenter, OnLoadMoment
 
 	@Override
 	public void pullDownRefresh() {
-
+		if (cachedItemCount > mMomentBeans.size()) {
+			cachedItemCount = mMomentBeans.size();
+		}
+		mMomentsView.refreshPullDownData(mMomentBeans.subList(0, cachedItemCount));
 	}
 
 	@Override
@@ -105,5 +108,9 @@ public class MomentsPresenter implements MomentsContract.Presenter, OnLoadMoment
 
 	public int getMomentsCount() {
 		return momentsCount;
+	}
+
+	public int getCachedItemCount() {
+		return cachedItemCount;
 	}
 }

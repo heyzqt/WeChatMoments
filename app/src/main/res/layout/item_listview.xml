@@ -85,6 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/moment_content_spacing"
+            android:background="@drawable/bottom_layout_background"
             android:orientation="vertical"
             android:padding="5dp"
             android:visibility="gone">

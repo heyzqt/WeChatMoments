@@ -75,7 +75,6 @@ public class MomentsAdapter extends BaseAdapter {
 				.load(moments.get(position).getSender().getAvatar())
 				.placeholder(R.mipmap.avatar_no_internet)
 				.into(viewHolder.avatar);
-		System.out.println("avatar url = " + moments.get(position).getSender().getAvatar());
 		viewHolder.name.setText(moments.get(position).getSender().getNick());
 		if (TextUtils.isEmpty(moments.get(position).getContent())) {
 			viewHolder.content.setVisibility(View.GONE);
@@ -125,7 +124,6 @@ public class MomentsAdapter extends BaseAdapter {
 			viewHolder.commentLayout.removeAllViews();
 
 			viewHolder.bottomLayout.setVisibility(View.VISIBLE);
-			viewHolder.bottomLayout.setBackgroundResource(R.mipmap.detail);
 			int n = commentsBeans.size();
 			for (int i = 0; i < n; i++) {
 				MomentBean.CommentsBean comment = commentsBeans.get(i);

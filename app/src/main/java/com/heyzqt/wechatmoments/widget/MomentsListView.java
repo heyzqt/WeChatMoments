@@ -2,6 +2,7 @@ package com.heyzqt.wechatmoments.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -27,10 +28,10 @@ import butterknife.ButterKnife;
 public class MomentsListView extends ListView implements AbsListView.OnScrollListener {
 
 	private View headerView;
-	private ImageView refreshView;
 	private int headerViewHeight;
 	private int firstVisibleItem;
 	private int paddingTop;
+	private final int HEADER_VIEW_SCROLLED = 40;
 
 	private View footerView;
 	private int footerViewHeight;
@@ -53,8 +54,6 @@ public class MomentsListView extends ListView implements AbsListView.OnScrollLis
 	private RotateAnimation loadAnimation;
 
 	private OnRefreshListener mRefreshListener;
-
-	private final int HEADER_VIEW_SCROLL = 24;
 
 	public static enum LoadMoreStatus {
 		/**
@@ -96,6 +95,7 @@ public class MomentsListView extends ListView implements AbsListView.OnScrollLis
 	void initHeaderView(Context context) {
 		headerView = LayoutInflater.from(context).inflate(R.layout.listview_header, null);
 		mHolder = new ViewHolder(headerView);
+		mHolder.refreshCircle = headerView.findViewById(R.id.refresh_circle);
 		headerView.measure(0, 0);
 		headerViewHeight = headerView.getMeasuredHeight();
 		addHeaderView(headerView);
@@ -114,29 +114,27 @@ public class MomentsListView extends ListView implements AbsListView.OnScrollLis
 		refreshAnimation = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF
 				, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		refreshAnimation.setDuration(1000);
-		refreshAnimation.setRepeatMode(Animation.INFINITE);
+		refreshAnimation.setRepeatCount(Animation.INFINITE);
 		refreshAnimation.setInterpolator(new LinearInterpolator());
-		refreshAnimation.setFillAfter(true);
 
 		loadAnimation = new RotateAnimation(360, 0, Animation.RELATIVE_TO_SELF
 				, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		loadAnimation.setDuration(1000);
-		loadAnimation.setRepeatMode(Animation.INFINITE);
+		loadAnimation.setRepeatCount(Animation.INFINITE);
 		loadAnimation.setInterpolator(new LinearInterpolator());
-		loadAnimation.setFillAfter(true);
 	}
 
 	private void changeHeaderViewState() {
 		switch (refreshState) {
 			case PULL_DOWN_REFRESH:
-				refreshView.startAnimation(refreshAnimation);
+				mHolder.refreshCircle.startAnimation(refreshAnimation);
 				break;
 			case REFRESHING:
-				refreshView.clearAnimation();
-				refreshView.startAnimation(refreshAnimation);
+				mHolder.refreshCircle.clearAnimation();
+				mHolder.refreshCircle.startAnimation(refreshAnimation);
 				break;
 			case RELEASE_REFRESH:
-				refreshView.startAnimation(loadAnimation);
+				mHolder.refreshCircle.startAnimation(loadAnimation);
 				break;
 		}
 	}
@@ -193,18 +191,42 @@ public class MomentsListView extends ListView implements AbsListView.OnScrollLis
 		} else {
 			isWholeListShowedAndEnd = false;
 		}
-
-		System.out.println("zhangqing itemCount = " + itemCounts);
-		System.out.println("zhangqing 111111 isend = " + isEnd);
-		System.out.println("zhangqing 333333 firstVisibleItem = " + firstVisibleItem + ","
-				+ "visibleItemCount = "
-				+ visibleItemCount + ",totalItemCount = " + totalItemCount
-				+ ",visibleLastItem = " + visibleLastItem);
 	}
 
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
 		int action = ev.getAction();
+		switch (action) {
+			case MotionEvent.ACTION_DOWN:
+				downY = (int) ev.getY();
+				break;
+			case MotionEvent.ACTION_MOVE:
+				moveY = (int) ev.getY();
+				paddingTop = (moveY - downY) - HEADER_VIEW_SCROLLED;
+				if (firstVisibleItem == 0 && paddingTop > -HEADER_VIEW_SCROLLED) {
+					if (paddingTop > 0 && refreshState == PULL_DOWN_REFRESH) {
+						refreshState = RELEASE_REFRESH;
+						changeHeaderViewState();
+					} else if (paddingTop < 0 && refreshState == RELEASE_REFRESH) {
+						refreshState = PULL_DOWN_REFRESH;
+						changeHeaderViewState();
+					}
+					headerView.setPadding(0, paddingTop, 0, 0);
+				}
+				break;
+			case MotionEvent.ACTION_UP:
+				if (refreshState == RELEASE_REFRESH) {
+					headerView.setPadding(0, 0, 0, 0);
+					refreshState = REFRESHING;
+					if (mRefreshListener != null) {
+						mRefreshListener.pullDownRefresh();
+					}
+					changeHeaderViewState();
+				} else if (refreshState == PULL_DOWN_REFRESH) {
+					headerView.setPadding(0, -HEADER_VIEW_SCROLLED, 0, 0);
+				}
+				break;
+		}
 		return super.onTouchEvent(ev);
 	}
 
@@ -218,6 +240,11 @@ public class MomentsListView extends ListView implements AbsListView.OnScrollLis
 		if (isWholeListShowedAndEnd) {
 			footerView.setPadding(0, -footerViewHeight + 2, 0, 0);
 		}
+	}
+
+	public void hideHeaderView() {
+		headerView.setPadding(0, -HEADER_VIEW_SCROLLED, 0, 0);
+		refreshState = PULL_DOWN_REFRESH;
 	}
 
 	public void finishLoad(boolean loadAll) {
@@ -246,7 +273,7 @@ public class MomentsListView extends ListView implements AbsListView.OnScrollLis
 
 		View view;
 		@BindView(R.id.refresh_circle)
-		ImageView circle;
+		ImageView refreshCircle;
 		@BindView(R.id.profile_img)
 		ImageView profile;
 		@BindView(R.id.user_name)
